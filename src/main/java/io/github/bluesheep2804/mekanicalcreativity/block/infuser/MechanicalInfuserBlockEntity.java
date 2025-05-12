@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekreate.block.infuser;
+package io.github.bluesheep2804.mekanicalcreativity.block.infuser;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour;

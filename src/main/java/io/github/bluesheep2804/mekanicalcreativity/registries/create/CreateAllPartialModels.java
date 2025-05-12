@@ -1,7 +1,7 @@
-package io.github.bluesheep2804.mekreate.registries.create;
+package io.github.bluesheep2804.mekanicalcreativity.registries.create;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import io.github.bluesheep2804.mekreate.Mekreate;
+import io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity;
 
 
 public class CreateAllPartialModels {
@@ -12,7 +12,7 @@ public class CreateAllPartialModels {
     ;
 
     private static PartialModel block(String path) {
-        return PartialModel.of(Mekreate.rl("block/" + path));
+        return PartialModel.of(MekanicalCreativity.rl("block/" + path));
     }
 
     public static void init() {}

@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "mekreate:block/mechanical_infuser_parts",
-		"particle": "mekreate:block/mechanical_infuser_parts"
+		"0": "mekanical_creativity:block/mechanical_infuser_parts",
+		"particle": "mekanical_creativity:block/mechanical_infuser_parts"
 	},
 	"elements": [
 		{

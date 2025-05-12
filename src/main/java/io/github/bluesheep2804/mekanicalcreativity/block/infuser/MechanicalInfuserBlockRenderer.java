@@ -1,9 +1,9 @@
-package io.github.bluesheep2804.mekreate.block.infuser;
+package io.github.bluesheep2804.mekanicalcreativity.block.infuser;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import io.github.bluesheep2804.mekreate.registries.create.CreateAllPartialModels;
+import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateAllPartialModels;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

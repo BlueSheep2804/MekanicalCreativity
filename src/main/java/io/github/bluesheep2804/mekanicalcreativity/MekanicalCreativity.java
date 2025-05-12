@@ -1,9 +1,9 @@
-package io.github.bluesheep2804.mekreate;
+package io.github.bluesheep2804.mekanicalcreativity;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import io.github.bluesheep2804.mekreate.registries.create.CreateBlockEntities;
-import io.github.bluesheep2804.mekreate.registries.create.CreateBlocks;
+import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlockEntities;
+import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -35,37 +35,37 @@ import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(Mekreate.MODID)
-public class Mekreate {
+@Mod(MekanicalCreativity.MODID)
+public class MekanicalCreativity {
 
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "mekreate";
+    public static final String MODID = "mekanical_creativity";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "mekreate" namespace
+    // Create a Deferred Register to hold Blocks which will all be registered under the "mekanical_creativity" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "mekreate" namespace
+    // Create a Deferred Register to hold Items which will all be registered under the "mekanical_creativity" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "mekreate" namespace
+    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "mekanical_creativity" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a new Block with the id "mekreate:example_block", combining the namespace and path
+    // Creates a new Block with the id "mekanical_creativity:example_block", combining the namespace and path
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
-    // Creates a new BlockItem with the id "mekreate:example_block", combining the namespace and path
+    // Creates a new BlockItem with the id "mekanical_creativity:example_block", combining the namespace and path
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
-    // Creates a new food item with the id "mekreate:example_id", nutrition 1 and saturation 2
+    // Creates a new food item with the id "mekanical_creativity:example_id", nutrition 1 and saturation 2
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(2f).build())));
 
-    // Creates a creative tab with the id "mekreate:example_tab" for the example item, that is placed after the combat tab
-    public static final RegistryObject<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.mekreate")).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
+    // Creates a creative tab with the id "mekanical_creativity:example_tab" for the example item, that is placed after the combat tab
+    public static final RegistryObject<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.mekanical_creativity")).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
         output.accept(CreateBlocks.MECHANICAL_INFUSER.asItem());
     }).build());
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
 
-    public Mekreate(FMLJavaModLoadingContext context) {
+    public MekanicalCreativity(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
         // Register the commonSetup method for modloading
@@ -90,7 +90,7 @@ public class Mekreate {
         REGISTRATE.registerEventListeners(modEventBus);
         CreateBlocks.register();
         CreateBlockEntities.register();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> MekreateClient::init);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> MekanicalCreativityClient::init);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

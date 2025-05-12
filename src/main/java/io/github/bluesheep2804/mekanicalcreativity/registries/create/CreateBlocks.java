@@ -1,13 +1,13 @@
-package io.github.bluesheep2804.mekreate.registries.create;
+package io.github.bluesheep2804.mekanicalcreativity.registries.create;
 
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import io.github.bluesheep2804.mekreate.block.infuser.MechanicalInfuserBlock;
+import io.github.bluesheep2804.mekanicalcreativity.block.infuser.MechanicalInfuserBlock;
 import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static io.github.bluesheep2804.mekreate.Mekreate.REGISTRATE;
+import static io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity.REGISTRATE;
 
 public class CreateBlocks {
     public static final BlockEntry<MechanicalInfuserBlock> MECHANICAL_INFUSER = REGISTRATE

@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekreate.block.infuser;
+package io.github.bluesheep2804.mekanicalcreativity.block.infuser;
 
 import com.simibubi.create.content.kinetics.base.ShaftVisual;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;

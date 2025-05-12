@@ -2,12 +2,12 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "mekreate:block/mechanical_infuser_parts",
-		"1": "mekreate:block/osmium_casing",
-		"2": "mekreate:block/osmium_casing_gearbox",
+		"0": "mekanical_creativity:block/mechanical_infuser_parts",
+		"1": "mekanical_creativity:block/osmium_casing",
+		"2": "mekanical_creativity:block/osmium_casing_gearbox",
 		"3": "create:block/axis",
 		"4": "create:block/axis_top",
-		"particle": "mekreate:block/osmium_casing"
+		"particle": "mekanical_creativity:block/osmium_casing"
 	},
 	"elements": [
 		{
