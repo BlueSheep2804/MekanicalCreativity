@@ -12,8 +12,10 @@ import mekanism.api.chemical.infuse.IInfusionHandler;
 import mekanism.api.chemical.infuse.IInfusionTank;
 import mekanism.api.chemical.infuse.InfusionStack;
 import mekanism.api.recipes.MetallurgicInfuserRecipe;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -21,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -28,6 +31,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,14 +126,21 @@ public class MechanicalInfuserBlockEntity extends KineticBlockEntity {
     public void tick() {
         super.tick();
 
-        if (level.isClientSide) return;
-
         if (getSpeed() == 0)
             return;
 
         if (processingTicks >= 0) {
             processingTicks--;
         }
+
+        if (processingTicks < 16 && processingTicks > 0 && level.isClientSide) {
+            Vec3 vec = VecHelper.getCenterOf(worldPosition);
+            vec = vec.subtract(0, 1.5f, 0);
+            Vector3f color = Vec3.fromRGB24(inputInfusionTank.getStack().getChemicalColorRepresentation()).toVector3f();
+            DustParticleOptions particle = new DustParticleOptions(color, 1);
+            level.addAlwaysVisibleParticle(particle, vec.x, vec.y, vec.z, 0, -.2f, 0);
+        }
+
         notifyUpdate();
     }
 

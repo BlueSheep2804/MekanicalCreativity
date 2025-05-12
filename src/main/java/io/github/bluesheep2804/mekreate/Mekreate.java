@@ -7,6 +7,7 @@ import io.github.bluesheep2804.mekreate.registries.create.CreateBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -88,6 +90,7 @@ public class Mekreate {
         REGISTRATE.registerEventListeners(modEventBus);
         CreateBlocks.register();
         CreateBlockEntities.register();
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> MekreateClient::init);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -124,5 +127,9 @@ public class Mekreate {
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
+    }
+
+    public static ResourceLocation rl(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

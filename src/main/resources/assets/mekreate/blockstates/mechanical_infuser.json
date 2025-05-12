@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mekreate:block/mechanical_infuser/block",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mekreate:block/mechanical_infuser/block"
+    },
+    "facing=south": {
+      "model": "mekreate:block/mechanical_infuser/block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mekreate:block/mechanical_infuser/block",
+      "y": 270
+    }
+  }
+}

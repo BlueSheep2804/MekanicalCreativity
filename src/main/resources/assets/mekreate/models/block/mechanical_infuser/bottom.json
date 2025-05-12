@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"0": "mekreate:block/mechanical_infuser_parts",
+		"particle": "mekreate:block/mechanical_infuser_parts"
+	},
+	"elements": [
+		{
+			"name": "bottom",
+			"from": [7, -6, 7],
+			"to": [9, 4, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, -6, 7]},
+			"faces": {
+				"north": {"uv": [7, 0, 9, 10], "texture": "#0"},
+				"east": {"uv": [7, 0, 9, 10], "texture": "#0"},
+				"south": {"uv": [7, 0, 9, 10], "texture": "#0"},
+				"west": {"uv": [7, 0, 9, 10], "texture": "#0"},
+				"down": {"uv": [4, 6, 6, 8], "texture": "#0"}
+			}
+		}
+	]
+}
