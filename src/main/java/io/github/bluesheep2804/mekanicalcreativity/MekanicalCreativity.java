@@ -61,6 +61,7 @@ public class MekanicalCreativity {
     public static final RegistryObject<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.mekanical_creativity")).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
         output.accept(CreateBlocks.MECHANICAL_INFUSER.asItem());
+        output.accept(CreateBlocks.OSMIUM_CASING.asItem());
     }).build());
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);

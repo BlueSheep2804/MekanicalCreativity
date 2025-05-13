@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "mekanical_creativity:block/osmium_casing"
+  }
+}
