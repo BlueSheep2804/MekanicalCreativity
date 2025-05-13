@@ -2,6 +2,7 @@ package io.github.bluesheep2804.mekanicalcreativity.registries.create;
 
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
+import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -9,6 +10,7 @@ import io.github.bluesheep2804.mekanicalcreativity.block.infuser.MechanicalInfus
 import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity.REGISTRATE;
 
 public class CreateBlocks {
@@ -19,6 +21,8 @@ public class CreateBlocks {
                     .noOcclusion()
                     .mapColor(MapColor.WOOD)
             )
+            .transform(axeOrPickaxe())
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
             .item(AssemblyOperatorBlockItem::new)
             .transform(customItemModel())
             .register();

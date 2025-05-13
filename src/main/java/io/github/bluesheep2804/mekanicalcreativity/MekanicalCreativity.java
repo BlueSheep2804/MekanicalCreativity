@@ -2,6 +2,7 @@ package io.github.bluesheep2804.mekanicalcreativity;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import io.github.bluesheep2804.mekanicalcreativity.data.MekanicalCreativityDataGen;
 import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlockEntities;
 import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlocks;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -84,6 +86,7 @@ public class MekanicalCreativity {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(EventPriority.LOWEST, MekanicalCreativityDataGen::gatherData);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
