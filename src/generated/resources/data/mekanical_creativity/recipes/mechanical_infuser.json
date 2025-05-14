@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "mekanism:metallurgic_infuser"
+    },
+    "M": {
+      "item": "mekanical_creativity:osmium_casing"
+    },
+    "O": {
+      "tag": "forge:plates/osmium"
+    },
+    "S": {
+      "item": "create:spout"
+    },
+    "|": {
+      "item": "create:shaft"
+    }
+  },
+  "pattern": [
+    "OMO",
+    "|I|",
+    " S "
+  ],
+  "result": {
+    "item": "mekanical_creativity:mechanical_infuser"
+  },
+  "show_notification": true
+}

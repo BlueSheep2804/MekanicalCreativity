@@ -18,6 +18,8 @@ public class MekanicalCreativityDataGen {
         DataGenerator gen = event.getGenerator();
         PackOutput output = gen.getPackOutput();
 
+        gen.addProvider(event.includeServer(), new MekCreStandardRecipeProvider(output));
+
         if (event.includeServer()) {
             MekCreRecipeProvider.registerAllProcessing(gen, output);
         }
