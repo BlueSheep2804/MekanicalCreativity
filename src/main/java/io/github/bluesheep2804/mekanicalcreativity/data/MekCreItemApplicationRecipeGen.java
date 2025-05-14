@@ -3,7 +3,7 @@ package io.github.bluesheep2804.mekanicalcreativity.data;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
-import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlocks;
+import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -14,7 +14,7 @@ import static com.simibubi.create.AllTags.forgeItemTag;
 import static io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity.rl;
 
 public final class MekCreItemApplicationRecipeGen extends ProcessingRecipeGen {
-    GeneratedRecipe OSMIUM = woodCasingIngredient("osmium", () -> Ingredient.of(forgeItemTag("ingots/osmium")), CreateBlocks.OSMIUM_CASING::get);
+    GeneratedRecipe OSMIUM = woodCasingIngredient("osmium", () -> Ingredient.of(forgeItemTag("ingots/osmium")), MekCreBlocks.OSMIUM_CASING::get);
 
     public MekCreItemApplicationRecipeGen(PackOutput pOutput) {
         super(pOutput);

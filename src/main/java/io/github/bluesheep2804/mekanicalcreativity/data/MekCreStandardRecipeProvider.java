@@ -1,8 +1,7 @@
 package io.github.bluesheep2804.mekanicalcreativity.data;
 
 import com.simibubi.create.AllBlocks;
-import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlocks;
-import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateItems;
+import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -24,14 +23,14 @@ public class MekCreStandardRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CreateBlocks.MECHANICAL_INFUSER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, MekCreBlocks.MECHANICAL_INFUSER.get())
                 .define('O', forgeItemTag("plates/osmium"))
-                .define('M', CreateBlocks.OSMIUM_CASING)
+                .define('M', MekCreBlocks.OSMIUM_CASING)
                 .define('|', AllBlocks.SHAFT)
                 .define('I', getMekanismItem("metallurgic_infuser"))
                 .define('S', AllBlocks.SPOUT)
                 .pattern("OMO").pattern("|I|").pattern(" S ")
-                .unlockedBy("has_osmium_casing", has(CreateBlocks.OSMIUM_CASING))
+                .unlockedBy("has_osmium_casing", has(MekCreBlocks.OSMIUM_CASING))
                 .save(pWriter, rl("mechanical_infuser"));
     }
 

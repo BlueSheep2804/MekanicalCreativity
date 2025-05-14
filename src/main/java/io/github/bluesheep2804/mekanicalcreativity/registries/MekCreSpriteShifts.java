@@ -1,6 +1,5 @@
-package io.github.bluesheep2804.mekanicalcreativity.registries.create;
+package io.github.bluesheep2804.mekanicalcreativity.registries;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.block.connected.AllCTTypes;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
 import com.simibubi.create.foundation.block.connected.CTSpriteShifter;
@@ -8,7 +7,7 @@ import com.simibubi.create.foundation.block.connected.CTType;
 
 import static io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity.rl;
 
-public class CreateSpriteShifts {
+public class MekCreSpriteShifts {
     public static final CTSpriteShiftEntry OSMIUM_CASING = omni("osmium_casing");
 
     private static CTSpriteShiftEntry omni(String name) {

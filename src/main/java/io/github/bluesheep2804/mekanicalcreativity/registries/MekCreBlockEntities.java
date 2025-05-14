@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.registries.create;
+package io.github.bluesheep2804.mekanicalcreativity.registries;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import io.github.bluesheep2804.mekanicalcreativity.block.infuser.MechanicalInfuserBlockEntity;
@@ -7,11 +7,11 @@ import io.github.bluesheep2804.mekanicalcreativity.block.infuser.MechanicalInfus
 
 import static io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity.REGISTRATE;
 
-public class CreateBlockEntities {
+public class MekCreBlockEntities {
     public static final BlockEntityEntry<MechanicalInfuserBlockEntity> MECHANICAL_INFUSER = REGISTRATE
             .blockEntity("mechanical_infuser", MechanicalInfuserBlockEntity::new)
             .visual(() -> MechanicalInfuserBlockVisual::new)
-            .validBlocks(CreateBlocks.MECHANICAL_INFUSER)
+            .validBlocks(MekCreBlocks.MECHANICAL_INFUSER)
             .renderer(() -> MechanicalInfuserBlockRenderer::new)
             .register();
 
