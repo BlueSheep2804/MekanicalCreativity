@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import io.github.bluesheep2804.mekanicalcreativity.data.MekanicalCreativityDataGen;
 import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlockEntities;
 import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateBlocks;
+import io.github.bluesheep2804.mekanicalcreativity.registries.create.CreateItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -64,6 +65,7 @@ public class MekanicalCreativity {
         output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
         output.accept(CreateBlocks.MECHANICAL_INFUSER.asItem());
         output.accept(CreateBlocks.OSMIUM_CASING.asItem());
+        output.accept(CreateItems.OSMIUM_SHEET);
     }).build());
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
@@ -94,6 +96,7 @@ public class MekanicalCreativity {
         REGISTRATE.registerEventListeners(modEventBus);
         CreateBlocks.register();
         CreateBlockEntities.register();
+        CreateItems.register();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> MekanicalCreativityClient::init);
     }
 

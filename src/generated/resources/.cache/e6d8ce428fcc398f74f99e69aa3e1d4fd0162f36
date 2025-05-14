@@ -1,13 +1,16 @@
-// 1.20.1	2025-05-13T19:50:10.6542766	Registrate Provider for mekanical_creativity [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-05-14T18:55:15.3623422	Registrate Provider for mekanical_creativity [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 3767304ed6b5e2bbf4a853c0b2bc51ae1f6deb9c assets/mekanical_creativity/blockstates/mechanical_infuser.json
 34b37bda8dcdb823261ae6ce8362caa59f753c8f assets/mekanical_creativity/blockstates/osmium_casing.json
-1a1912d414164cb3b5f8021d2e5c42d53356c5da assets/mekanical_creativity/lang/en_ud.json
-4018e91ed01265c63873aa6f9bdf089e3605adb2 assets/mekanical_creativity/lang/en_us.json
+c5582821282de344d71e67736e01654cf63dce51 assets/mekanical_creativity/lang/en_ud.json
+09ca6c13b7479d6831362de6f1fa2f8299efeafd assets/mekanical_creativity/lang/en_us.json
 cd64e5881ba283510ade98182a879164f833e749 assets/mekanical_creativity/models/block/osmium_casing.json
 e3bf98ce9a4088aaf3b19bd2e840ba8de7f4cf88 assets/mekanical_creativity/models/item/mechanical_infuser.json
 86fcd2d0797e88e459e658372965e9fc41d7b016 assets/mekanical_creativity/models/item/osmium_casing.json
+58d6fb8cb6c55bb5949aa0a5eee4333260bfa74d assets/mekanical_creativity/models/item/osmium_sheet.json
 bd7bc1579ffab9cece3183a7afbeb3df5a5aa7cf data/create/tags/blocks/casing.json
 bd7bc1579ffab9cece3183a7afbeb3df5a5aa7cf data/create/tags/items/casing.json
+50188431a7034983bc8d36315bfbc752f8078e4a data/forge/tags/items/plates.json
+50188431a7034983bc8d36315bfbc752f8078e4a data/forge/tags/items/plates/osmium.json
 2ebb9cd7016629c8f95ca6562c8a7786302514f5 data/mekanical_creativity/loot_tables/blocks/mechanical_infuser.json
 07266b01ac3027fa07800d039e0affe30a76b40e data/mekanical_creativity/loot_tables/blocks/osmium_casing.json
 3b56a495b7b292aeb1b1075ce8ac615b3aa399d9 data/minecraft/tags/blocks/mineable/axe.json

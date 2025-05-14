@@ -25,6 +25,7 @@ public class MekCreRecipeProvider extends RecipeProvider {
 
     public static void registerAllProcessing(DataGenerator gen, PackOutput output) {
         GENERATORS.add(new MekCreItemApplicationRecipeGen(output));
+        GENERATORS.add(new MekCrePressingRecipeGen(output));
 
         gen.addProvider(true, new DataProvider() {
             @Override

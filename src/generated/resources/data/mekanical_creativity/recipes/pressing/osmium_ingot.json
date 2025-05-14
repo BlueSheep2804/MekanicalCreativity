@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/osmium"
+    }
+  ],
+  "results": [
+    {
+      "item": "mekanical_creativity:osmium_sheet"
+    }
+  ]
+}
