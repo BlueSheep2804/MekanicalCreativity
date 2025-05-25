@@ -1,6 +1,11 @@
 {
+  "block.mekanical_creativity.advanced_infuse_extractor": "Advanced Infuse Extractor",
+  "block.mekanical_creativity.basic_infuse_extractor": "Basic Infuse Extractor",
+  "block.mekanical_creativity.creative_infuse_extractor": "Creative Infuse Extractor",
+  "block.mekanical_creativity.elite_infuse_extractor": "Elite Infuse Extractor",
   "block.mekanical_creativity.mechanical_infuser": "Mechanical Infuser",
   "block.mekanical_creativity.osmium_casing": "Osmium Casing",
+  "block.mekanical_creativity.ultimate_infuse_extractor": "Ultimate Infuse Extractor",
   "item.mekanical_creativity.osmium_sheet": "Osmium Sheet",
   "itemGroup.mekanical_creativity": "Mekanical Creativity"
 }

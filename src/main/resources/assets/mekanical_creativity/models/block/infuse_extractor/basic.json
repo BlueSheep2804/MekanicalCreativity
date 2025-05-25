@@ -1,0 +1,6 @@
+{
+    "parent": "mekanical_creativity:block/infuse_extractor/base",
+    "textures": {
+        "side": "mekanical_creativity:block/extractor/side_basic"
+    }
+}

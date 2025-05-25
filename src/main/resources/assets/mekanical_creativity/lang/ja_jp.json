@@ -1,6 +1,11 @@
 {
+  "block.mekanical_creativity.advanced_infuse_extractor": "発展吹込抽出器",
+  "block.mekanical_creativity.basic_infuse_extractor": "基本吹込抽出器",
+  "block.mekanical_creativity.creative_infuse_extractor": "クリエイティブ吹込抽出器",
+  "block.mekanical_creativity.elite_infuse_extractor": "精鋭吹込抽出器",
   "block.mekanical_creativity.mechanical_infuser": "メカニカルインフューザー",
   "block.mekanical_creativity.osmium_casing": "オスミウムケーシング",
+  "block.mekanical_creativity.ultimate_infuse_extractor": "究極吹込抽出器",
   "item.mekanical_creativity.osmium_sheet": "オスミウムの板",
   "itemGroup.mekanical_creativity": "Mekanical Creativity"
 }
