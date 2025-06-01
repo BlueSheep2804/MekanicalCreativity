@@ -1,0 +1,6 @@
+// 1.20.1	2025-06-01T12:50:04.5382742	Loot Tables
+d925a3a36871653028b089ee1b35322caad1bae2 data/mekanical_creativity/loot_tables/blocks/advanced_infuse_extractor.json
+b0463b330d5dcf8409a2f3e7a639cb8167cbb6d0 data/mekanical_creativity/loot_tables/blocks/basic_infuse_extractor.json
+337dc217cfcc39680ddab77a009ceed03b7e1544 data/mekanical_creativity/loot_tables/blocks/creative_infuse_extractor.json
+bc7d28a101b7058ef66cd496c75eec2c2f369410 data/mekanical_creativity/loot_tables/blocks/elite_infuse_extractor.json
+fbf0092af8de3f8083def27a4166e9d923fb38da data/mekanical_creativity/loot_tables/blocks/ultimate_infuse_extractor.json

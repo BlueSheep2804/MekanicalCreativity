@@ -3,7 +3,7 @@ package io.github.bluesheep2804.mekanicalcreativity.block.infuser;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import io.github.bluesheep2804.mekanicalcreativity.registries.MekCrePartialModels;
+import io.github.bluesheep2804.mekanicalcreativity.registries.registrate.MekCreCreatePartialModels;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -16,8 +16,8 @@ public class MechanicalInfuserBlockRenderer extends KineticBlockEntityRenderer<M
     }
 
     static final PartialModel[] BITS = {
-            MekCrePartialModels.INFUSER_TOP,
-            MekCrePartialModels.INFUSER_BOTTOM
+            MekCreCreatePartialModels.INFUSER_TOP,
+            MekCreCreatePartialModels.INFUSER_BOTTOM
     };
 
     @Override

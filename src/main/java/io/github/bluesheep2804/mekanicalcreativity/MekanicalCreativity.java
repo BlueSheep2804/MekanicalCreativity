@@ -3,9 +3,12 @@ package io.github.bluesheep2804.mekanicalcreativity;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import io.github.bluesheep2804.mekanicalcreativity.data.MekanicalCreativityDataGen;
-import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlockEntities;
+import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlockEntityTypes;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
-import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreItems;
+import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreContainerTypes;
+import io.github.bluesheep2804.mekanicalcreativity.registries.registrate.MekCreCreateBlockEntities;
+import io.github.bluesheep2804.mekanicalcreativity.registries.registrate.MekCreCreateBlocks;
+import io.github.bluesheep2804.mekanicalcreativity.registries.registrate.MekCreCreateItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -29,10 +32,10 @@ public class MekanicalCreativity {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final RegistryObject<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.mekanical_creativity")).icon(() -> MekCreBlocks.OSMIUM_CASING.asItem().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(MekCreBlocks.MECHANICAL_INFUSER.asItem());
-        output.accept(MekCreBlocks.OSMIUM_CASING.asItem());
-        output.accept(MekCreItems.OSMIUM_SHEET);
+    public static final RegistryObject<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.mekanical_creativity")).icon(() -> MekCreCreateBlocks.OSMIUM_CASING.asItem().getDefaultInstance()).displayItems((parameters, output) -> {
+        output.accept(MekCreCreateBlocks.MECHANICAL_INFUSER.asItem());
+        output.accept(MekCreCreateBlocks.OSMIUM_CASING.asItem());
+        output.accept(MekCreCreateItems.OSMIUM_SHEET);
     }).build());
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
@@ -41,15 +44,18 @@ public class MekanicalCreativity {
         IEventBus modEventBus = context.getModEventBus();
 
         MinecraftForge.EVENT_BUS.register(this);
+        MekCreBlocks.BLOCKS.register(modEventBus);
+        MekCreContainerTypes.CONTAINER_TYPES.register(modEventBus);
+        MekCreBlockEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(EventPriority.LOWEST, MekanicalCreativityDataGen::gatherData);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         REGISTRATE.registerEventListeners(modEventBus);
-        MekCreBlocks.register();
-        MekCreBlockEntities.register();
-        MekCreItems.register();
+        MekCreCreateBlocks.register();
+        MekCreCreateBlockEntities.register();
+        MekCreCreateItems.register();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> MekanicalCreativityClient::init);
     }
 

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_basic": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mekanical_creativity:basic_infuse_extractor"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekanical_creativity:advanced_infuse_extractor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_basic",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekanical_creativity:advanced_infuse_extractor"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,11 +1,11 @@
 {
   "values": [
     "mekanical_creativity:mechanical_infuser",
+    "mekanical_creativity:osmium_casing",
     "mekanical_creativity:basic_infuse_extractor",
     "mekanical_creativity:advanced_infuse_extractor",
     "mekanical_creativity:elite_infuse_extractor",
     "mekanical_creativity:ultimate_infuse_extractor",
-    "mekanical_creativity:creative_infuse_extractor",
-    "mekanical_creativity:osmium_casing"
+    "mekanical_creativity:creative_infuse_extractor"
   ]
 }

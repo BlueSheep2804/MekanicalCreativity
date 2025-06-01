@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism:alloys/reinforced"
+    },
+    "B": {
+      "item": "mekanical_creativity:advanced_infuse_extractor"
+    },
+    "C": {
+      "tag": "forge:circuits/elite"
+    },
+    "I": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IBI",
+    "ACA"
+  ],
+  "result": {
+    "item": "mekanical_creativity:elite_infuse_extractor"
+  },
+  "show_notification": true
+}

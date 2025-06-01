@@ -1,10 +1,10 @@
-package io.github.bluesheep2804.mekanicalcreativity.registries;
+package io.github.bluesheep2804.mekanicalcreativity.registries.registrate;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity;
 
 
-public class MekCrePartialModels {
+public class MekCreCreatePartialModels {
     public static final PartialModel
 
     INFUSER_TOP = block("mechanical_infuser/top"),

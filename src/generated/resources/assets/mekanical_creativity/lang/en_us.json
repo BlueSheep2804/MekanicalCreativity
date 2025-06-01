@@ -6,6 +6,12 @@
   "block.mekanical_creativity.mechanical_infuser": "Mechanical Infuser",
   "block.mekanical_creativity.osmium_casing": "Osmium Casing",
   "block.mekanical_creativity.ultimate_infuse_extractor": "Ultimate Infuse Extractor",
+  "container.mekanical_creativity.advanced_infuse_extractor": "Advanced Infuse Extractor",
+  "container.mekanical_creativity.basic_infuse_extractor": "Basic Infuse Extractor",
+  "container.mekanical_creativity.creative_infuse_extractor": "Creative Infuse Extractor",
+  "container.mekanical_creativity.elite_infuse_extractor": "Elite Infuse Extractor",
+  "container.mekanical_creativity.ultimate_infuse_extractor": "Ultimate Infuse Extractor",
+  "description.mekanical_creativity.infuse_extractor": "A machine that converts items into substances that can be infused.",
   "item.mekanical_creativity.osmium_sheet": "Osmium Sheet",
   "itemGroup.mekanical_creativity": "Mekanical Creativity"
 }

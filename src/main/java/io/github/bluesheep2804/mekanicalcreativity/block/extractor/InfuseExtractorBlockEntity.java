@@ -1,196 +1,131 @@
 package io.github.bluesheep2804.mekanicalcreativity.block.extractor;
 
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import io.github.bluesheep2804.mekanicalcreativity.mixin.InfusionInventorySlotMixin;
 import io.github.bluesheep2804.mekanicalcreativity.tier.InfuseExtractorTier;
-import mekanism.api.Action;
+import mekanism.api.IContentsListener;
+import mekanism.api.RelativeSide;
 import mekanism.api.chemical.ChemicalTankBuilder;
-import mekanism.api.chemical.infuse.IInfusionHandler;
 import mekanism.api.chemical.infuse.IInfusionTank;
+import mekanism.api.chemical.infuse.InfuseType;
 import mekanism.api.chemical.infuse.InfusionStack;
 import mekanism.api.recipes.ItemStackToInfuseTypeRecipe;
+import mekanism.api.recipes.cache.CachedRecipe;
+import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
+import mekanism.api.recipes.cache.OneInputCachedRecipe;
+import mekanism.api.recipes.inputs.IInputHandler;
+import mekanism.api.recipes.inputs.InputHelper;
+import mekanism.api.recipes.outputs.IOutputHandler;
+import mekanism.api.recipes.outputs.OutputHelper;
+import mekanism.common.block.attribute.Attribute;
+import mekanism.common.block.prefab.BlockTile;
+import mekanism.common.capabilities.Capabilities;
+import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
+import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
+import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
+import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.common.inventory.container.slot.SlotOverlay;
+import mekanism.common.inventory.slot.InputInventorySlot;
+import mekanism.common.inventory.slot.chemical.InfusionInventorySlot;
+import mekanism.common.inventory.warning.WarningTracker;
+import mekanism.common.lib.transmitter.TransmissionType;
+import mekanism.common.recipe.IMekanismRecipeTypeProvider;
+import mekanism.common.recipe.MekanismRecipeType;
+import mekanism.common.recipe.lookup.ISingleRecipeLookupHandler.ItemRecipeLookupHandler;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache;
+import mekanism.common.registration.impl.BlockRegistryObject;
+import mekanism.common.tile.component.TileComponentConfig;
+import mekanism.common.tile.component.TileComponentEjector;
+import mekanism.common.tile.prefab.TileEntityProgressMachine;
+import mekanism.common.util.MekanismUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.function.Predicate;
 
-public class InfuseExtractorBlockEntity extends SmartBlockEntity {
-    public InfuseExtractorTier tier;
-    int processingTicks = -1;
-    RecipeType<ItemStackToInfuseTypeRecipe> infusionConversionRecipeType = (RecipeType<ItemStackToInfuseTypeRecipe>) ForgeRegistries.RECIPE_TYPES.getValue(
-            ResourceLocation.fromNamespaceAndPath("mekanism", "infusion_conversion")
+public class InfuseExtractorBlockEntity extends TileEntityProgressMachine<ItemStackToInfuseTypeRecipe> implements ItemRecipeLookupHandler<ItemStackToInfuseTypeRecipe> {
+    private static final List<RecipeError> TRACKED_ERRORS = List.of(
+            RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            RecipeError.NOT_ENOUGH_INPUT
     );
-    public ItemStackHandler inventory;
-    public LazyOptional<IItemHandler> capability;
+
     public IInfusionTank infusionTank;
-    public LazyOptional<IInfusionHandler> infusionCapability;
+    private final IOutputHandler<@NotNull InfusionStack> outputHandler;
+    private final IInputHandler<@NotNull ItemStack> inputHandler;
 
-    private InfuseExtractorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, InfuseExtractorTier tier) {
-        super(type, pos, state);
-        this.tier = tier;
-        inventory = new ItemStackHandler(1);
-        capability = LazyOptional.of(() -> inventory);
-        infusionTank = ChemicalTankBuilder.INFUSION.input(2000, infuseType -> true, this::setChanged);
-        infusionCapability = LazyOptional.of(InfusionHandler::new);
+    InputInventorySlot inputSlot;
+    InfusionInventorySlot outputSlot;
+
+    public InfuseExtractorBlockEntity(BlockRegistryObject<BlockTile.BlockTileModel<InfuseExtractorBlockEntity, BlockTypeTile<InfuseExtractorBlockEntity>>, InfuseExtractorItemBlock> block, BlockPos pos, BlockState state) {
+        super(block, pos, state, TRACKED_ERRORS, 1000);
+        InfuseExtractorTier tier = Attribute.getTier(block, InfuseExtractorTier.class);
+        baseTicksRequired = tier.getProcessingTicks();
+        ticksRequired = baseTicksRequired;
+
+        configComponent = new TileComponentConfig(this, TransmissionType.ITEM, TransmissionType.INFUSION, TransmissionType.ENERGY);
+        configComponent.setupInputConfig(TransmissionType.ITEM, inputSlot);
+        configComponent.setupOutputConfig(TransmissionType.ITEM, outputSlot, RelativeSide.BOTTOM);
+        configComponent.setupOutputConfig(TransmissionType.INFUSION, infusionTank, RelativeSide.BOTTOM);
+
+        ejectorComponent = new TileComponentEjector(this);
+        ejectorComponent.setOutputData(configComponent, TransmissionType.INFUSION);
+
+        inputHandler = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
+        outputHandler = OutputHelper.getOutputHandler(infusionTank, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
     }
 
-    public static InfuseExtractorBlockEntity basic(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        return new InfuseExtractorBlockEntity(type, pos, state, InfuseExtractorTier.BASIC);
+    @NotNull
+    @Override
+    public IChemicalTankHolder<InfuseType, InfusionStack, IInfusionTank> getInitialInfusionTanks(IContentsListener listener, IContentsListener recipeCacheListener) {
+        ChemicalTankHelper<InfuseType, InfusionStack, IInfusionTank> builder = ChemicalTankHelper.forSideInfusionWithConfig(this::getDirection, this::getConfig);
+        builder.addTank(infusionTank = ChemicalTankBuilder.INFUSION.output(1000, listener));
+        return builder.build();
     }
 
-    public static InfuseExtractorBlockEntity advanced(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        return new InfuseExtractorBlockEntity(type, pos, state, InfuseExtractorTier.ADVANCED);
-    }
-
-    public static InfuseExtractorBlockEntity elite(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        return new InfuseExtractorBlockEntity(type, pos, state, InfuseExtractorTier.ELITE);
-    }
-
-    public static InfuseExtractorBlockEntity ultimate(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        return new InfuseExtractorBlockEntity(type, pos, state, InfuseExtractorTier.ULTIMATE);
-    }
-
-    public static InfuseExtractorBlockEntity creative(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        return new InfuseExtractorBlockEntity(type, pos, state, InfuseExtractorTier.CREATIVE);
+    @NotNull
+    @Override
+    protected IInventorySlotHolder getInitialInventory(IContentsListener listener, IContentsListener recipeCacheListener) {
+        InventorySlotHelper builder = InventorySlotHelper.forSideWithConfig(this::getDirection, this::getConfig);
+        builder.addSlot(inputSlot = InputInventorySlot.at(this::containsRecipe, recipeCacheListener, 26, 36))
+                .tracksWarnings(slot -> slot.warning(WarningTracker.WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT)));
+        Predicate<ItemStack> insertPredicate = InfusionInventorySlot.getDrainInsertPredicate(infusionTank, InfusionInventorySlot::getCapability);
+        builder.addSlot(outputSlot = InfusionInventorySlotMixin.init(infusionTank, () -> null, insertPredicate.negate(), insertPredicate, (stack) -> stack.getCapability(Capabilities.INFUSION_HANDLER).isPresent(), listener, 152, 56));
+        outputSlot.setSlotOverlay(SlotOverlay.PLUS);
+        return builder.build();
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    protected void onUpdateServer() {
+        super.onUpdateServer();
+        outputSlot.drainTank();
+        recipeCacheLookupMonitor.updateAndProcess();
     }
 
+    @NotNull
     @Override
-    public void tick() {
-        super.tick();
-
-        if (getRecipe().isPresent()) {
-            if (processingTicks < 0)
-                processingTicks = tier.getProcessingTicks();
-
-            processingTicks--;
-        } else
-            processingTicks = -1;
-
-        if (processingTicks == 0)
-            process();
-
-        // 自動搬出
-        if (!infusionTank.isEmpty())
-            autoExtract();
+    public IMekanismRecipeTypeProvider<ItemStackToInfuseTypeRecipe, InputRecipeCache.SingleItem<ItemStackToInfuseTypeRecipe>> getRecipeType() {
+        return MekanismRecipeType.INFUSION_CONVERSION;
     }
 
-    private void process() {
-        Optional<ItemStackToInfuseTypeRecipe> recipe = getRecipe();
-        if (recipe.isEmpty())
-            return;
-
-        InfusionStack output = recipe.get().getOutput(inventory.getStackInSlot(0));
-
-        if (!infusionTank.isEmpty() && !infusionTank.isTypeEqual(output))  // 同じ気体か否か
-            return;
-
-        if (infusionTank.getStored() + output.getAmount() > infusionTank.getCapacity())  // 容量オーバー
-            return;
-
-        if (infusionTank.isEmpty())
-            infusionTank.setStack(output);
-        else
-            infusionTank.growStack(output.getAmount(), Action.EXECUTE);
-
-        inventory.getStackInSlot(0).shrink(1);
-    }
-
-    private void autoExtract() {
-        BlockPos below = worldPosition.below();
-        var be = Objects.requireNonNull(level).getBlockEntity(below);
-        if (be == null)
-            return;
-
-        be.getCapability(CapabilityManager.get(new CapabilityToken<IInfusionHandler>() {}), Direction.UP)
-                .ifPresent(target -> {
-                    InfusionStack remaining = target.insertChemical(infusionTank.getStack(), Action.EXECUTE);
-                    if (remaining.isEmpty()) {
-                        infusionTank.setEmpty();
-                    } else {
-                        infusionTank.setStack(remaining);
-                    }
-                });
-    }
-
+    @Nullable
     @Override
-    public void invalidate() {
-        super.invalidate();
-        infusionCapability.invalidate();
+    public ItemStackToInfuseTypeRecipe getRecipe(int cacheIndex) {
+        return findFirstRecipe(inputHandler);
     }
 
+    @NotNull
     @Override
-    public void remove() {
-        super.remove();
-    }
-
-    @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
-        compound.putInt("ProcessingTicks", processingTicks);
-        compound.put("Inventory", inventory.serializeNBT());
-        compound.put("InfusionTank", infusionTank.serializeNBT());
-        super.write(compound, clientPacket);
-    }
-
-    @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        processingTicks = compound.getInt("ProcessingTicks");
-        inventory.deserializeNBT(compound.getCompound("Inventory"));
-        infusionTank.deserializeNBT(compound.getCompound("InfusionTank"));
-        super.read(compound, clientPacket);
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (isItemHandlerCap(cap))
-            return capability.cast();
-
-        if (cap == CapabilityManager.get(new CapabilityToken<IInfusionHandler>() {}))
-            return infusionCapability.cast();
-        return super.getCapability(cap, side);
-    }
-
-    private Optional<ItemStackToInfuseTypeRecipe> getRecipe() {
-        return getRecipe(inventory.getStackInSlot(0));
-    }
-
-    public Optional<ItemStackToInfuseTypeRecipe> getRecipe(ItemStack input) {
-        List<ItemStackToInfuseTypeRecipe> infusionConversionRecipes = level.getRecipeManager()
-                .getAllRecipesFor(infusionConversionRecipeType);
-        Optional<ItemStackToInfuseTypeRecipe> recipe = infusionConversionRecipes.stream()
-                .filter(it -> it.test(input))
-                .findFirst();
-        return recipe;
-    }
-
-    private class InfusionHandler implements IInfusionHandler.IMekanismInfusionHandler {
-        @NotNull
-        @Override
-        public List<IInfusionTank> getChemicalTanks(@Nullable Direction side) {
-            return List.of(infusionTank);
-        }
-
-        @Override
-        public void onContentsChanged() {}
+    public CachedRecipe<ItemStackToInfuseTypeRecipe> createNewCachedRecipe(@NotNull ItemStackToInfuseTypeRecipe recipe, int cacheIndex) {
+        return OneInputCachedRecipe.itemToChemical(recipe, recheckAllRecipeErrors, inputHandler, outputHandler)
+                .setErrorsChanged(this::onErrorsChanged)
+                .setCanHolderFunction(() -> MekanismUtils.canFunction(this))
+                .setActive(this::setActive)
+                .setRequiredTicks(this::getTicksRequired)
+                .setOnFinish(this::markForSave)
+                .setOperatingTicksChanged(this::setOperatingTicks);
     }
 }
