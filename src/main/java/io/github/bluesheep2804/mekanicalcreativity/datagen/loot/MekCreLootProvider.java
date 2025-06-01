@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen.loot;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;

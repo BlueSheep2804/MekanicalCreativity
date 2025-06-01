@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen.loot;
 
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
 import mekanism.api.NBTConstants;

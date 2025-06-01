@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen.recipe;
 
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net.minecraft.data.CachedOutput;

@@ -2,7 +2,7 @@ package io.github.bluesheep2804.mekanicalcreativity;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import io.github.bluesheep2804.mekanicalcreativity.data.MekanicalCreativityDataGen;
+import io.github.bluesheep2804.mekanicalcreativity.datagen.MekanicalCreativityDataGen;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlockEntityTypes;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreContainerTypes;

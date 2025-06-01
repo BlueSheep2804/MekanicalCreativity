@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen.recipe;
 
 import com.simibubi.create.AllBlocks;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;

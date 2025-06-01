@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

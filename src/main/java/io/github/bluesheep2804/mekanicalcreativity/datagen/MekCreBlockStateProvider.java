@@ -1,4 +1,4 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen;
 
 import io.github.bluesheep2804.mekanicalcreativity.MekanicalCreativity;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;

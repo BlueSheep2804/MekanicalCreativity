@@ -1,6 +1,9 @@
-package io.github.bluesheep2804.mekanicalcreativity.data;
+package io.github.bluesheep2804.mekanicalcreativity.datagen;
 
 import com.tterrag.registrate.providers.ProviderType;
+import io.github.bluesheep2804.mekanicalcreativity.datagen.loot.MekCreLootProvider;
+import io.github.bluesheep2804.mekanicalcreativity.datagen.recipe.MekCreRecipeProvider;
+import io.github.bluesheep2804.mekanicalcreativity.datagen.recipe.MekCreStandardRecipeProvider;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
