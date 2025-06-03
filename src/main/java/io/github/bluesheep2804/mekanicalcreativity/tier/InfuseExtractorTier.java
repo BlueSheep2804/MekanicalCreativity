@@ -2,6 +2,7 @@ package io.github.bluesheep2804.mekanicalcreativity.tier;
 
 import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
+import mekanism.common.config.value.CachedIntValue;
 
 public enum InfuseExtractorTier implements ITier {
     BASIC(BaseTier.BASIC, 80),
@@ -12,6 +13,7 @@ public enum InfuseExtractorTier implements ITier {
 
     private final BaseTier baseTier;
     private final int processingTicks;
+    private CachedIntValue processingTickReference;
 
     InfuseExtractorTier(BaseTier baseTier, int processingTicks) {
         this.baseTier = baseTier;
@@ -24,6 +26,10 @@ public enum InfuseExtractorTier implements ITier {
     }
 
     public int getProcessingTicks() {
-        return processingTicks;
+        return processingTickReference == null ? processingTicks : processingTickReference.getOrDefault();
+    }
+
+    public void setConfigReference(CachedIntValue processingTickReference) {
+        this.processingTickReference = processingTickReference;
     }
 }

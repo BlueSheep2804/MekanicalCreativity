@@ -2,6 +2,7 @@ package io.github.bluesheep2804.mekanicalcreativity;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import io.github.bluesheep2804.mekanicalcreativity.config.MekCreConfig;
 import io.github.bluesheep2804.mekanicalcreativity.datagen.MekanicalCreativityDataGen;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlockEntityTypes;
 import io.github.bluesheep2804.mekanicalcreativity.registries.MekCreBlocks;
@@ -19,7 +20,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -43,14 +43,14 @@ public class MekanicalCreativity {
     public MekanicalCreativity(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
+        MekCreConfig.registerConfigs(context);
+
         MinecraftForge.EVENT_BUS.register(this);
         MekCreBlocks.BLOCKS.register(modEventBus);
         MekCreContainerTypes.CONTAINER_TYPES.register(modEventBus);
         MekCreBlockEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(EventPriority.LOWEST, MekanicalCreativityDataGen::gatherData);
-
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         REGISTRATE.registerEventListeners(modEventBus);
         MekCreCreateBlocks.register();
